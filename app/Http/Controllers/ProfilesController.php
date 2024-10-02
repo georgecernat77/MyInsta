@@ -36,6 +36,7 @@ class ProfilesController extends Controller
             }
         );
 
+
         return view('profiles/index', [
             'user' => $user,
             'follows' => $follows,

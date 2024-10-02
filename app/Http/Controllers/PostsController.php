@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 
@@ -11,7 +12,7 @@ class PostsController extends Controller
 {
    public function __construct()
    {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('show');
    }
 
     public function index()
@@ -53,9 +54,30 @@ class PostsController extends Controller
     }
     public function show(\App\Models\Post $post)
     {
+        $liking = auth()->user() ? auth()->user()->liking->contains($post) : false;
+
+        $likesCount = Cache::remember(
+            'count.likes' . $post->id,
+            now()->addSeconds(30),
+            function () use ($post) {
+                return $post->likes->count();
+            }
+        );
+
+//        dd($post->likes()->get());
         return view('posts/show', [
             'post' => $post,
+            'liking' => $liking,
+            'likesCount' => $likesCount,
+
         ]);
+    }
+
+    public function getLikes(Post $post)
+    {
+        $likes = $post->likes()->with('profile')->get();
+
+        return response()->json($likes);
     }
 
 }
