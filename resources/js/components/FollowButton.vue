@@ -43,3 +43,11 @@
         },
     }
 </script>
+
+<style scoped>
+.btn:focus {
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+</style>

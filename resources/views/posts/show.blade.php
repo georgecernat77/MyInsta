@@ -36,7 +36,7 @@
                 </span>
                     {{$post->caption}}
                 </p>
-                <like-button post-id="{{ $post->id }}" liking="{{ $liking }}"></like-button>
+{{--                <like-button post-id="{{ $post->id }}" liking="{{ $liking }}"></like-button>--}}
 {{--                <div class="d-flex font-weight-bold mt-3 ml-1">--}}
 {{--                    {{ $likesCount }} likes--}}
 {{--                </div>--}}
@@ -60,7 +60,7 @@
 {{--                        </div>--}}
 {{--                    @endforeach--}}
 {{--                </div>--}}
-                <like-window post-id="{{ $post->id }}" likes-count="{{ $likesCount }}"></like-window>
+                <like-window post-id="{{ $post->id }}" likes-count="{{ $likesCount }}" liking="{{ $liking }}"></like-window>
             </div>
         </div>
     </div>
