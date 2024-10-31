@@ -19,6 +19,10 @@ class PostsController extends Controller
     {
         $users = auth()->user()->following()->pluck('profiles.user_id');
         $posts = Post::whereIn('user_id', $users)->with('user')->orderBy('created_at', 'DESC')->paginate(5);
+        foreach ($posts as $post) {
+            $post->follows = auth()->user() ? auth()->user()->following->contains($post->user->id) : false;
+        }
+
 
         return view('posts/index', [
             'posts' => $posts,
@@ -55,7 +59,7 @@ class PostsController extends Controller
     public function show(\App\Models\Post $post)
     {
         $liking = auth()->user() ? auth()->user()->liking->contains($post) : false;
-
+        $follows = auth()->user() ? auth()->user()->following->contains($post->user->id) : false;
         $likesCount = Cache::remember(
             'count.likes' . $post->id,
             now()->addSeconds(30),
@@ -63,12 +67,20 @@ class PostsController extends Controller
                 return $post->likes->count();
             }
         );
+        $postComments = $post->comments()->get();
+        foreach ($postComments as $postComment)
+        {
+            $postComment->commentLiking = auth()->user() ? auth()->user()->commentLiking->contains($postComment) : false;
+            $postComment->likesCount = $postComment->likes->count();
+        }
 
 //        dd($post->likes()->get());
         return view('posts/show', [
             'post' => $post,
             'liking' => $liking,
             'likesCount' => $likesCount,
+            'follows' => $follows,
+            'postComments' => $postComments
 
         ]);
     }

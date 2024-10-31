@@ -1,0 +1,41 @@
+.comments-and-caption {
+    overflow-y: auto;
+    min-height: 66vh;
+    max-height: 66vh;
+    border-bottom: 1px solid #ddd;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.no-outline {
+    height: 28px;
+    border-bottom-style: none;
+    border-top-style: none;
+    resize: none;
+    border-left-style: none;
+    border-right-style: none;
+    outline: none;
+    box-shadow: none;
+}
+.no-outline:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.btn-link-as-text {
+    background: none;
+    border: none;
+    padding: 0;
+    color: #007bff; /* Culoarea specifica unui link */
+    text-decoration: none; /* Linie sub text, pentru a imita stilul de link */
+    cursor: pointer;
+    position: relative;
+    top: -5px;
+    font-weight: 700;
+    outline: none;
+    box-shadow: none;
+}
+
+.btn-link-as-text:hover {
+    color: #0056b3; /* Culoare de hover, pentru a da efectul link-ului */
+    text-decoration: none;
+}

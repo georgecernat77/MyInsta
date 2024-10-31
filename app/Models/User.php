@@ -66,7 +66,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class)->orderBy('created_at', 'DESC');
     }
-
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
     public function profile()
     {
         return $this->hasOne(Profile::class);
@@ -80,5 +83,9 @@ class User extends Authenticatable
     public function liking()
     {
         return $this->belongsToMany(Post::class, 'post_user', 'user_id', 'post_id');
+    }
+    public function commentLiking()
+    {
+        return $this->belongsToMany(Comment::class, 'comment_user', 'user_id', 'comment_id');
     }
 }

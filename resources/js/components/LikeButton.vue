@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button class="btn " @click="likePost">
+        <button class="btn" @click="likePost">
             <img :src="status ? '/storage/icons/heart-full.png' : '/storage/icons/heart-empty.png'" class='like-icon'/>
         </button>
     </div>
@@ -40,6 +40,8 @@ export default {
 .like-icon{
     width: 24px;
     height: 24px;
+    position: relative;
+    left: -50%;
 }
 
 .btn:focus {

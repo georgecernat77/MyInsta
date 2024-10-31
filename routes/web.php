@@ -9,6 +9,8 @@ Route::get('/email', function (){
     return new \App\Mail\UserWelcome();
 });
 
+Route::post('/comment/{post}', [App\Http\Controllers\CommentsController::class, 'store']);
+Route::post('/likeComment/{comment}', [App\Http\Controllers\CommentLikesController::class, 'store']);
 Route::post('/like/{post}', [App\Http\Controllers\LikesController::class, 'store']);
 Route::post('/follow/{user}', [App\Http\Controllers\FollowsController::class, 'store']);
 

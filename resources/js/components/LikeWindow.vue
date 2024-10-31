@@ -1,11 +1,11 @@
 <template>
     <div>
-<!--        afiseaza nr like uri care prin apasare deschide window ul cu like uri-->
-        <div class="d-flex font-weight-bold mt-3 ml-1">
-            <a href="#" class="text-decoration-none" @click.prevent="openModal"><span class="text-dark">{{ localLikesCount }} likes</span></a>
-        </div>
         <!-- Butonul LikeButton -->
         <LikeButton :postId="postId" :liking="liking" @update-likes="fetchLikes"></LikeButton>
+        <!--        afiseaza nr like uri care prin apasare deschide window ul cu like uri-->
+        <div class="d-flex font-weight-bold">
+            <a href="#" class="text-decoration-none" @click.prevent="openModal"><span class="text-dark">{{ localLikesCount }} likes</span></a>
+        </div>
 <!--       se afiseaza window ul care arata pers care au dat like-->
         <div v-if="showModal" class="modal-overlay">
             <div class="modal-content">
