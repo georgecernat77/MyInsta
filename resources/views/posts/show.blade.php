@@ -58,7 +58,7 @@
                     </div>
                     <div class="comments-section mt-3">
                         @foreach($postComments as $comment)
-                            <div class="pfp-and-comment d-flex">
+                            <div class="pfp-and-comment d-flex" style="position:relative">
                                 <div class="pr-3">
                                     <a class="text-decoration-none" href="/profile/{{ $comment->user->id }}">
                                         <img src="{{ $comment->user->profile->profileImage()}}" alt="" class="w-100 rounded-circle"
@@ -77,12 +77,19 @@
                                         </div>
                                         <div class="comment-date mt-1 d-flex" style="font-size: 12px; color: rgb(168,168,168,1); font-weight: 400">
                                            {{ \App\Helpers\DateHelper::formatTimeDifference($comment->created_at) }}
-                                           <div class="likes-count ml-3 font-weight-bold">
+                                           <div class="likes-count ml-3 font-weight-bold" id="likes-count-{{ $comment->id }}">
                                                {{$comment->likesCount}} likes
                                            </div>
                                         </div>
                                     </div>
-                                    <commentlike-button comment-id="{{ $comment->id }}" liking="{{ $comment->commentLiking }}"></commentlike-button>
+{{--                                    <commentlike-button comment-id="{{ $comment->id }}" liking="{{ $comment->commentLiking }}"></commentlike-button>--}}
+                                    <button class="btn comment-like-btn" onclick="likeComment({{ $comment->id }})">
+                                        @if ($comment->commentLiking)
+                                            <img :src="'/storage/icons/heart-full.png'" class='comment-like-icon' id="like-icon-{{ $comment->id }}"/>
+                                        @else
+                                            <img :src="'/storage/icons/heart-empty.png'" class='comment-like-icon' id="like-icon-{{ $comment->id }}"/>
+                                        @endif
+                                    </button>
                                 </div>
                             </div>
                         @endforeach
@@ -104,3 +111,59 @@
         </div>
     </div>
 @endsection
+
+{{--<script>--}}
+{{--    function likeComment(commentId) {--}}
+{{--        axios.post('/likeComment/' + commentId)--}}
+{{--            .then(response => {--}}
+{{--                // this.status = !this.status;--}}
+{{--                // verificam daca utilizatorul a dat like / unlike la comentariu--}}
+{{--                const { attached, detached } = response.data; // aici se populeaza attached , dettached cu array-urile corespunzatoare din response.data--}}
+{{--                const likeIcon = document.getElementById(`like-icon-${commentId}`);--}}
+{{--                const liked = attached.includes(commentId);--}}
+{{--                const unliked = detached.includes(commentId);--}}
+{{--                if (liked) {--}}
+{{--                    likeIcon.src = '/storage/icons/heart-full.png';--}}
+{{--                }--}}
+{{--                else {--}}
+{{--                    likeIcon.src = '/storage/icons/heart-empty.png';--}}
+{{--                }--}}
+{{--                updateLikes(commentId);--}}
+{{--            })--}}
+{{--            .catch(errors => {--}}
+{{--                if(errors.response.status === 401) {--}}
+{{--                    window.location = '/login';--}}
+{{--                }--}}
+{{--            })--}}
+{{--    }--}}
+
+{{--    function updateLikes(commentId) {--}}
+{{--        const likesCountDiv = document.getElementById(`likes-count-${commentId}`)--}}
+{{--        axios.get('/' + commentId + '/likes/')--}}
+{{--            .then(response => {--}}
+{{--                likesCountDiv.innerHTML = `${response.data} likes`;--}}
+{{--            })--}}
+{{--            .catch(errors => {--}}
+{{--                if(errors.response.status === 401) {--}}
+{{--                    window.location.reload();--}}
+{{--                }--}}
+{{--            })--}}
+{{--    }--}}
+{{--</script>--}}
+
+{{--<style>--}}
+{{--    .comment-like-btn {--}}
+{{--        position: absolute;--}}
+{{--        right: 0;--}}
+{{--        /*transform: translateY(-10%);*/--}}
+{{--    }--}}
+{{--    .comment-like-icon{--}}
+{{--        width: 13px;--}}
+{{--        height: 13px;--}}
+{{--    }--}}
+
+{{--    .comment-and-like .comment-like-btn:focus {--}}
+{{--        border: none;--}}
+{{--        box-shadow: none;--}}
+{{--    }--}}
+{{--</style>--}}

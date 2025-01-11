@@ -67,7 +67,7 @@ class PostsController extends Controller
                 return $post->likes->count();
             }
         );
-        $postComments = $post->comments()->get();
+        $postComments = $post->comments()->with(['user.profile', 'likes'])->get();
         foreach ($postComments as $postComment)
         {
             $postComment->commentLiking = auth()->user() ? auth()->user()->commentLiking->contains($postComment) : false;

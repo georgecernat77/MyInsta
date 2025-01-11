@@ -11,6 +11,7 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="{{ mix('resources/css/app.css') }}">
+    <link rel="stylesheet" href="{{ mix('resources/css/showPost.css') }}">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -20,6 +21,8 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+
 </head>
 <body>
     <div id="app" class="d-flex flex-column" style="height: 100vh">

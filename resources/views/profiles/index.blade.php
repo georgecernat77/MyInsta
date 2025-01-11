@@ -10,7 +10,9 @@
             <div class="d-flex justify-content-between align-items-baseline">
                 <div class="d-flex align-items-center pb-3">
                     <div class="h4">{{$user->username}}</div>
-                    <follow-button user-id="{{ $user->id }}" follows="{{ $follows }}"></follow-button>
+                    @cannot('update', $user->profile)
+                        <follow-button user-id="{{ $user->id }}" follows="{{ $follows }}"></follow-button>
+                    @endcannot
                 </div>
                 @can('update', $user->profile)
                     <a href="/p/create" class="text-decoration-none">Add New Post</a>
@@ -33,9 +35,12 @@
     </div>
     <div class="row pt-5  d-flex flex-row" >
             @foreach($user->posts as $post)
-            <div class="col-4 pb-4">
+            <div class="col-4 pb-4 single-profile-post">
                 <a href="/p/{{$post->id}}">
-                    <img src="/storage/{{ $post->image }}" alt="" class="w-100 mr-4">
+                    <div class="post-image">
+                        <img src="/storage/{{ $post->image }}" alt="" class="w-100">
+                        <div class="overlay"></div>
+                    </div>
                 </a>
             </div>
             @endforeach

@@ -23,7 +23,7 @@ export default {
             axios.post('/likeComment/' + this.commentId)
                 .then(response => {
                     this.status = !this.status;
-                    // this.$emit('update-comment-likes');
+                    this.$emit('update-comment-likes');
                 })
                 .catch(errors => {
                     if(errors.response.status == 401) {
@@ -41,6 +41,7 @@ export default {
     height: 13px;
     position: absolute;
     right: 0;
+    transform: translateY(-50%);
 }
 
 .btn:focus {
