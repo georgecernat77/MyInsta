@@ -1,0 +1,14 @@
+.comment-like-btn {
+    position: absolute;
+    right: 0;
+    /*transform: translateY(-10%);*/
+}
+.comment-like-icon{
+    width: 13px;
+    height: 13px;
+}
+
+.comment-and-like .comment-like-btn:focus {
+    border: none;
+    box-shadow: none;
+}
