@@ -19,6 +19,8 @@ Route::get('/p/create', [App\Http\Controllers\PostsController::class, 'create'])
 Route::post('/p', [App\Http\Controllers\PostsController::class, 'store']);
 Route::get('/p/{post}/likes', [\App\Http\Controllers\PostsController::class, 'getLikes']);
 Route::get('/{commentId}/likes', [\App\Http\Controllers\CommentLikesController::class, 'getLikes']);
+Route::post('/p/{post}/update', [App\Http\Controllers\PostsController::class, 'update']);
+Route::delete('p/{post}/delete', [App\Http\Controllers\PostsController::class, 'destroy']);
 Route::get('/p/{post}', [App\Http\Controllers\PostsController::class, 'show']);
 
 Route::get('/profile/{user}', [App\Http\Controllers\ProfilesController::class, 'index'])->name('profile.show');

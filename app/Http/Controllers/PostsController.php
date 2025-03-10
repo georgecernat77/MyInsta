@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Intervention\Image\ImageManager;
@@ -56,10 +57,16 @@ class PostsController extends Controller
 
         return redirect('/profile/' . auth()->user()->id);
     }
-    public function show(\App\Models\Post $post)
+    public function show($id)
     {
+        try {
+            $post = Post::findOrFail($id);
+        }catch (ModelNotFoundException $e) {
+            return redirect('/')->with('error', 'Postarea nu a fost gasita!');
+        }
         $liking = auth()->user() ? auth()->user()->liking->contains($post) : false;
         $follows = auth()->user() ? auth()->user()->following->contains($post->user->id) : false;
+        $isAuthor = auth()->user()->id == $post->user->id;
         $likesCount = Cache::remember(
             'count.likes' . $post->id,
             now()->addSeconds(30),
@@ -80,10 +87,35 @@ class PostsController extends Controller
             'liking' => $liking,
             'likesCount' => $likesCount,
             'follows' => $follows,
-            'postComments' => $postComments
+            'postComments' => $postComments,
+            'isAuthor' => $isAuthor,
 
         ]);
     }
+
+    public function update(Post $post) {
+       $this->authorize('update', $post);
+
+       $data = request()->validate([
+           'caption' => 'required|max:250'
+       ]);
+       if ($data['caption'] == $post->caption) {
+           return response()->json(['message' => 'Descrierile sunt la fel!'], 304);
+       }
+       $post->update(['caption' => $data['caption']]);
+       return response()->json(['message' => 'Descriere actualizata cu succes!']);
+   }
+
+   public function destroy(Post $post) {
+       $this->authorize('update', $post);
+       $user_id = $post->user->id;
+       $post->delete();
+       return response()->json([
+           'message' => 'Postare stearsa!',
+           'reddirect_url' => route('profile.show', ['user' => $user_id])
+       ]);
+
+   }
 
     public function getLikes(Post $post)
     {

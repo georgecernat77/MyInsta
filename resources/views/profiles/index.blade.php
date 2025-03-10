@@ -6,9 +6,9 @@
         <div class="col-3 p-5">
             <img src="{{ $user->profile->profileImage()}}" class="rounded-circle w-100">
         </div>
-        <div class="col-9 pt-5" style="padding-left: 3rem">
+        <div class="col-9 pt-4" style="padding-left: 3rem">
             <div class="d-flex justify-content-between align-items-baseline">
-                <div class="d-flex align-items-center pb-3">
+                <div class="d-flex align-items-center pb-2">
                     <div class="h4">{{$user->username}}</div>
                     @cannot('update', $user->profile)
                         <follow-button user-id="{{ $user->id }}" follows="{{ $follows }}"></follow-button>

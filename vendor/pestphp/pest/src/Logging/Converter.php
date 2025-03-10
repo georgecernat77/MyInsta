@@ -11,6 +11,7 @@ use Pest\Support\Str;
 use PHPUnit\Event\Code\Test;
 use PHPUnit\Event\Code\TestMethod;
 use PHPUnit\Event\Code\Throwable;
+use PHPUnit\Event\Test\AfterLastTestMethodErrored;
 use PHPUnit\Event\Test\BeforeFirstTestMethodErrored;
 use PHPUnit\Event\Test\ConsideredRisky;
 use PHPUnit\Event\Test\Errored;
@@ -150,7 +151,7 @@ final readonly class Converter
     {
         if ($testSuite instanceof TestSuiteForTestMethodWithDataProvider) {
             $firstTest = $this->getFirstTest($testSuite);
-            if ($firstTest != null) {
+            if ($firstTest instanceof \PHPUnit\Event\Code\TestMethod) {
                 return $this->getTestMethodNameWithoutDatasetSuffix($firstTest);
             }
         }
@@ -178,7 +179,7 @@ final readonly class Converter
     public function getTestSuiteLocation(TestSuite $testSuite): ?string
     {
         $firstTest = $this->getFirstTest($testSuite);
-        if ($firstTest == null) {
+        if (! $firstTest instanceof \PHPUnit\Event\Code\TestMethod) {
             return null;
         }
         $path = $firstTest->testDox()->prettifiedClassName();
@@ -254,8 +255,9 @@ final readonly class Converter
         $numberOfNotPassedTests = count(
             array_unique(
                 array_map(
-                    function (BeforeFirstTestMethodErrored|Errored|Failed|Skipped|ConsideredRisky|MarkedIncomplete $event): string {
-                        if ($event instanceof BeforeFirstTestMethodErrored) {
+                    function (AfterLastTestMethodErrored|BeforeFirstTestMethodErrored|Errored|Failed|Skipped|ConsideredRisky|MarkedIncomplete $event): string {
+                        if ($event instanceof BeforeFirstTestMethodErrored
+                            || $event instanceof AfterLastTestMethodErrored) {
                             return $event->testClassName();
                         }
 
