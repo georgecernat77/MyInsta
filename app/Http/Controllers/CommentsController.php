@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use function Pest\Laravel\json;
 
 class CommentsController extends Controller
 {
@@ -17,11 +18,27 @@ class CommentsController extends Controller
             ]
         ]);
 
-        $post->comments()->create([
+        $comment = $post->comments()->create([
             'user_id' => auth()->user()->id,
             'content' => $data['content']
         ]);
+        if (request()->ajax()) {
+            $profile_image = $comment->user->profile->profileImage();
+            return response()->json([
+                'message' => 'Comment Added!',
+                'comment' => [
+                    'id' => $comment->id,
+                    'content' => $comment->content ,
+                    'user' => [
+                        'id' => $comment->user->id,
+                        'username' => $comment->user->username,
+                        'profileImage' => $profile_image,
+                    ],
+                ]
+            ], 200);
+        }
+
         return redirect('/p/' . $post->id);
     }
-    
+
 }

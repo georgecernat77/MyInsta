@@ -36,7 +36,7 @@
     <div class="row pt-5  d-flex flex-row" >
             @foreach($user->posts as $post)
             <div class="col-4 pb-4 single-profile-post">
-                <a href="/p/{{$post->id}}">
+                <a onclick="togglePostModal({{ $post->id }})" class="image-link">
                     <div class="post-image">
                         <img src="/storage/{{ $post->image }}" alt="" class="w-100">
                         <div class="overlay"></div>
@@ -44,6 +44,25 @@
                 </a>
             </div>
             @endforeach
+    </div>
+    <div id="postModal" class="modal">
+        <div class="modal-content index-modal-content p-0">
+            <div id="modal-body"></div>
+        </div>
+    </div>
+    <div id="shareModal" class="modal">
+        <div class="modal-content p-0">
+            <div class="modal-body p-0">
+                <div class="options-tab d-flex flex-column justify-content-center align-items-center">
+                    <div class="options-button-div pt-2">
+                        <button class="options-button copy-link-button btn">Copy link</button>
+                    </div>
+                    <div class="options-button-div pb-2">
+                        <button class="options-button btn" onclick="closeShareModal()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

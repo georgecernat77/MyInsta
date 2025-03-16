@@ -6,6 +6,7 @@
 
 import './bootstrap';
 import './showPost.js';
+import './indexPost.js';
 import { createApp } from 'vue';
 
 /**

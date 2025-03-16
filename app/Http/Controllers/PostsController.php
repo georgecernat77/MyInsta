@@ -22,6 +22,21 @@ class PostsController extends Controller
         $posts = Post::whereIn('user_id', $users)->with('user')->orderBy('created_at', 'DESC')->paginate(5);
         foreach ($posts as $post) {
             $post->follows = auth()->user() ? auth()->user()->following->contains($post->user->id) : false;
+            $post->commentsCount = $post->comments->count();
+            $post->liking = auth()->user() ? auth()->user()->liking->contains($post) : false;
+            $post->likesCount = Cache::remember(
+                'count.likes' . $post->id,
+                now()->addSeconds(30),
+                function () use ($post) {
+                    return $post->likes->count();
+                }
+            );
+//            dd($post->comments()->with(['user.profile', 'likes'])->get());
+//            foreach ($post->postComments as $postComment)
+//            {
+//                $postComment->commentLiking = auth()->user() ? auth()->user()->commentLiking->contains($postComment) : false;
+//                $postComment->likesCount = $postComment->likes->count();
+//            }
         }
 
 
@@ -82,6 +97,17 @@ class PostsController extends Controller
         }
 
 //        dd($post->likes()->get());
+        if(request()->ajax()) {
+            return view('posts/_modal_content', [
+                'post' => $post,
+                'liking' => $liking,
+                'likesCount' => $likesCount,
+                'follows' => $follows,
+                'postComments' => $postComments,
+                'isAuthor' => $isAuthor,
+
+            ])->render();
+        }
         return view('posts/show', [
             'post' => $post,
             'liking' => $liking,
