@@ -37,8 +37,10 @@ class CommentsController extends Controller
                 ]
             ], 200);
         }
+        else {
+            return response()->json(['message' => 'Comment Added!'], 200);
+        }
 
-        return redirect('/p/' . $post->id);
     }
 
 }

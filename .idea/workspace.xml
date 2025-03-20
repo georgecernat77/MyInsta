@@ -2,20 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="846185e4-88c2-4314-834e-683699e2ead3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/css/indexPost.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/indexPost.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/posts/_modal_content.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/searchProfiles.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CommentsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CommentsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PostsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PostsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/database.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/database/database.sqlite" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/css/showPost.css" beforeDir="false" afterPath="$PROJECT_DIR$/resources/css/showPost.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/resources/css/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/LikeWindow.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/LikeWindow.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/indexPost.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/indexPost.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/showPost.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/showPost.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/posts/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/posts/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/profiles/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/profiles/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -253,7 +251,10 @@
       <workItem from="1741857619913" duration="3362000" />
       <workItem from="1742051909399" duration="595000" />
       <workItem from="1742059194029" duration="46000" />
-      <workItem from="1742122875850" duration="7362000" />
+      <workItem from="1742122875850" duration="16021000" />
+      <workItem from="1742231862525" duration="5979000" />
+      <workItem from="1742289658185" duration="12172000" />
+      <workItem from="1742498829939" duration="3023000" />
     </task>
     <servers />
   </component>

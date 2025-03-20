@@ -138,7 +138,7 @@ class PostsController extends Controller
        $post->delete();
        return response()->json([
            'message' => 'Postare stearsa!',
-           'reddirect_url' => route('profile.show', ['user' => $user_id])
+           'reddirectUrl' => route('profile.show', $user_id)
        ]);
 
    }

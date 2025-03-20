@@ -70,14 +70,14 @@
                 <div class="row">
                     <div class="col-6 offset-3">
                         <div class="add-comment-section index-add-comment-section">
-                            <form action="/comment/{{ $post->id }}" method="post">
+                            <form action="#" id="add-comment-index-form" method="post">
                                 @csrf
                                 <div class="d-flex align-items-center" style="justify-content: space-between;">
                                     <div class="form">
-                                <textarea name="content" class="no-outline" placeholder="Add a comment..."
-                                          required></textarea>
+                                        <textarea name="content" id="index-add-comment-content-{{$post->id}}" class="no-outline" placeholder="Add a comment..." required></textarea>
+                                        <input type="hidden" name="post-id" id="index-post-id" value="{{ $post->id  }}">
                                     </div>
-                                    <button type="submit" class="btn-link-as-text">Post</button>
+                                    <button type="submit" id="{{$post->id}}" class="btn-link-as-text">Post</button>
                                 </div>
                             </form>
                         </div>

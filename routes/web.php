@@ -22,6 +22,7 @@ Route::get('/{commentId}/likes', [\App\Http\Controllers\CommentLikesController::
 Route::post('/p/{post}/update', [App\Http\Controllers\PostsController::class, 'update']);
 Route::delete('p/{post}/delete', [App\Http\Controllers\PostsController::class, 'destroy']);
 Route::get('/p/{post}', [App\Http\Controllers\PostsController::class, 'show']);
+Route::get('/search', [App\Http\Controllers\SearchController::class, 'searchProfiles']);
 
 Route::get('/profile/{user}', [App\Http\Controllers\ProfilesController::class, 'index'])->name('profile.show');
 Route::get('/profile/{user}/edit', [App\Http\Controllers\ProfilesController::class, 'edit'])->name('profile.edit');

@@ -18,6 +18,8 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
 
 
     <!-- Scripts -->
@@ -39,8 +41,51 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
+                    <ul class="navbar-nav nav-center">
+                        @auth
+                            <div class="search-box d-flex flex-column">
+                                <i class="fas fa-search search-icon"></i>
+                                <input type="text" id="searchBar" class="search-bar" placeholder="Search" autocomplete="off">
+                                <div id="search-modal">
+                                    <div class="search-results d-flex justify-content-center">
+                                        <div class="results-box" id="resultsBox">
+                                            <div class="pl-3 pt-3 pb-1">
+                                                <span class="text-dark" style="font-size: 14px; font-weight: 600">Results</span>
+                                            </div>
+                                            <div class="profile-results" id="profileResults"></div>
+                                            {{--                                        <div class="search-result">--}}
+                                            {{--                                            <a href="/profile/{{ auth()->user()->id }}" class="text-decoration-none"--}}
+                                            {{--                                               target="_blank">--}}
+                                            {{--                                                <div class="d-flex align-items-center justify-content-between">--}}
+                                            {{--                                                    <div class="d-flex align-items-center" style="line-height: 1.4;">--}}
+                                            {{--                                                        <div class="pl-3 pr-3">--}}
+                                            {{--                                                            <img src="{{ auth()->user()->profile->profileImage() }}"--}}
+                                            {{--                                                                 class="w-100 rounded-circle"--}}
+                                            {{--                                                                 style="height: 44px; width: 44px" alt="user-image">--}}
+                                            {{--                                                        </div>--}}
+                                            {{--                                                        <div class="d-flex flex-column">--}}
+                                            {{--                                                            <span class="font-weight-bold text-dark"--}}
+                                            {{--                                                                  style="font-size: 14px;">--}}
+                                            {{--                                                                {{ auth()->user()->username }}--}}
+                                            {{--                                                            </span>--}}
+                                            {{--                                                            <span--}}
+                                            {{--                                                                style="font-weight: 400; font-size: 14px; color: rgb(168, 168, 168);">--}}
+                                            {{--                                                                <div class="d-flex">--}}
+                                            {{--                                                                    {{ auth()->user()->name }}--}}
+                                            {{--                                                                    <div class="pl-1 pr-1">•</div>--}}
+                                            {{--                                                                    {{ auth()->user()->profile->followers->count() }} followers--}}
+                                            {{--                                                                </div>--}}
+                                            {{--                                                            </span>--}}
+                                            {{--                                                        </div>--}}
+                                            {{--                                                    </div>--}}
+                                            {{--                                                </div>--}}
+                                            {{--                                            </a>--}}
+                                            {{--                                        </div>--}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->

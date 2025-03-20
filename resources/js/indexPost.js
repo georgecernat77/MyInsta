@@ -6,6 +6,7 @@ import FollowButton from "./components/FollowButton.vue";
 window.onclick = function (event) {
     const postModal = document.getElementById('postModal');
     const shareModal = document.getElementById('shareModal');
+    const searchModal = document.getElementById('search-modal');
     // verifica dacă utilizatorul a dat click direct pe div-ul principal al modalului (nu pe continutul sau)
     if (event.target === postModal) {
         postModal.style.display = "none";
@@ -14,6 +15,9 @@ window.onclick = function (event) {
     if (event.target === shareModal) {
         shareModal.style.display = "none";
         window.removeNoScroll();
+    }
+    if(event.target === searchModal) {
+        searchModal.style.display = "none";
     }
 }
 
@@ -47,7 +51,6 @@ window.togglePostModal = function (postId) {
     document.addEventListener('submit',  function(event) {
         if (event.target && event.target.matches('#add-comment-form')) {
             event.preventDefault(); // Oprire submit clasic
-            console.log("salut12345");
             const commentContent = document.getElementById('add-comment-content').value;
             const postId = document.getElementById('post-id').value;
 
@@ -66,6 +69,28 @@ window.togglePostModal = function (postId) {
                 })
 
 
+        }
+
+        if (event.target && event.target.matches('#add-comment-index-form')) {
+            event.preventDefault();
+            const postId = event.submitter.id;
+            const commentContentId = 'index-add-comment-content-' + postId;
+            console.log(commentContentId);
+            const commentContent = document.getElementById(commentContentId);
+            console.log(commentContent.value);
+            axios.post('/comment/' + postId , {
+                content: commentContent.value
+            })
+                .then(response => {
+                    if (response.status === 200) {
+                        commentContent.value = '';
+                        commentContent.placeholder = "Add a comment...";
+                        window.togglePostModal(postId);
+                    }
+                })
+                .catch(error => {
+                    console.error("Eroare", error);
+                })
         }
     });
 

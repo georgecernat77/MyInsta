@@ -7,6 +7,7 @@
 import './bootstrap';
 import './showPost.js';
 import './indexPost.js';
+import './searchProfiles.js';
 import { createApp } from 'vue';
 
 /**

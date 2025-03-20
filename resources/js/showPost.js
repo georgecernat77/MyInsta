@@ -172,7 +172,7 @@ window.safeDeletePost = function () {
         .then(response => {
             toggleOptions();
             toggleDeletePost();
-            const reddirectUrl = response.redirect_url;
+            const reddirectUrl = response.data.reddirectUrl;
             if (response.status === 200) {
                 succesModal.style.display = "flex";
                 succesMessage.textContent = 'Postare stearsa cu succes!';
@@ -191,7 +191,7 @@ window.safeDeletePost = function () {
             console.log(error.response.data.message);
             setTimeout(() => {
                 succesModal.style.display = "none";
-                window.location.reload();
+                // window.location.reload();
             }, 2000);
 
         });
