@@ -55,6 +55,7 @@ class User extends Authenticatable
         static::created(function ($user) {
             $user->profile()->create([
                 'title' => $user->name,
+                'image' => 'profile/profile-image.svg',
             ]);
 
             Mail::to($user->email)->send(new UserWelcome($user));

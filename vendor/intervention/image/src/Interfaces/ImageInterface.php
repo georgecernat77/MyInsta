@@ -640,6 +640,7 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Trim the image by removing border areas of similar color within a the given tolerance
      *
+     * @link https://image.intervention.io/v3/modifying/resizing#trim-image
      * @param int $tolerance
      * @throws RuntimeException
      * @throws AnimationException
@@ -670,10 +671,10 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Fill image with given color
      *
-     * If coordinates are transferred in the form of X and Y values, the function
-     * is executed as a flood fill. This means that the color at the specified
-     * position is taken as a reference and all adjacent pixels are also filled
-     * with the same color.
+     * If an optional position is specified for the filling process ln the form
+     * of x and y coordinates, the process is executed as flood fill. This means
+     * that the color at the specified position is taken as a reference and all
+     * adjacent pixels are also filled with the filling color.
      *
      * If no coordinates are specified, the entire image area is filled.
      *

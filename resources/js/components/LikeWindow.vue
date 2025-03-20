@@ -1,7 +1,16 @@
 <template>
     <div>
-        <!-- Butonul LikeButton -->
-        <LikeButton :postId="postId" :liking="liking" @update-likes="fetchLikes"></LikeButton>
+        <div class="d-flex">
+            <!-- Butonul LikeButton -->
+            <LikeButton :postId="postId" :liking="liking" @update-likes="fetchLikes"></LikeButton>
+            <!--        Butoul de comment-->
+            <button class="btn comment-button" @click="openPostModal">
+                <img src="/storage/icons/comment-icon.png" class='comment-icon'/>
+            </button>
+            <button class="btn share-button" @click="openShareModal">
+                <img src="/storage/icons/share-icon.png" class='share-icon'/>
+            </button>
+        </div>
         <!--        afiseaza nr like uri care prin apasare deschide window ul cu like uri-->
         <div class="d-flex font-weight-bold">
             <a href="#" class="text-decoration-none" @click.prevent="openModal"><span class="text-dark">{{ localLikesCount }} likes</span></a>
@@ -70,6 +79,16 @@ export default {
         closeModal() {
             this.showModal = false;
         },
+        openPostModal() {
+          if (typeof window.togglePostModal === "function") {
+              window.togglePostModal(this.postId);
+          }
+        },
+        openShareModal() {
+          if (typeof window.toggleShareModal === "function") {
+              window.toggleShareModal(this.postId);
+          }
+        },
         fetchLikes() {
             this.loading = true;
             axios.get('/p/' + this.postId + '/likes')
@@ -135,6 +154,56 @@ export default {
 .close-button:focus {
     outline: none;
     box-shadow: none
+}
+
+.comment-button {
+    position: relative;
+    right: 25px;
+}
+.comment-icon{
+    width: 24px;
+    height: 24px;
+}
+.share-button {
+    position: relative;
+    top: -5%;
+    left: -40px;
+}
+.share-icon{
+    width: 24px;
+    height: 24px;
+    transform: rotate(20deg);
+}
+.btn:focus {
+    border: none;
+    box-shadow: none;
+    outline: none;
+}
+
+.btn {
+    outline: none;
+    border: none;
+    transition: none;
+}
+
+.btn:active {
+    border: none;
+    box-shadow: none;
+    outline: none;
+}
+
+.btn:focus-visible:after {
+    border: none;
+    box-shadow: none;
+    outline: none;
+    transition: none;
+}
+
+.btn:focus:before {
+    border: none;
+    box-shadow: none;
+    outline: none;
+    transition: none;
 }
 
 </style>

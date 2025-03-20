@@ -12,3 +12,223 @@
     border: none;
     box-shadow: none;
 }
+
+#options-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 500px;
+    width: 100%;
+}
+
+.close {
+    float: right;
+    font-size: 24px;
+    cursor: pointer;
+}
+.options-button-div {
+    width: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.options-tab .options-button {
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0;
+    min-height: 48px;
+    padding: 4px 8px;
+    text-align: center;
+    width: 100%;
+    font-weight: 600;
+    border: none;
+    box-shadow: none;
+}
+.options-button.delete-button {
+    color: rgb(237, 73, 86);
+}
+.options-tab .options-button:hover {
+    font-weight: 650;
+    border: none;
+    box-shadow: none;
+}
+.options-button.delete-button:hover  {
+    color: rgb(237, 26, 43);
+}
+.options-button.delete-button:active  {
+    color: rgb(237, 73, 86) !important;
+}
+.options-tab {
+    font-size: 100%;
+}
+
+.options-tab .options-button:active {
+    border: none;
+    box-shadow: none;
+}
+.options-tab .options-button:focus {
+    border: none;
+    box-shadow: none;
+}
+
+.open-options-btn {
+    border: none;
+    box-shadow: none;
+    outline: none;
+    background: transparent;
+}
+.open-options-btn:active {
+    border: none;
+    box-shadow: none;
+    outline: none;
+}
+.open-options-btn:focus {
+    border: none;
+    box-shadow: none;
+    outline: none;
+}
+
+
+#edit-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+.btn:focus {
+    border: none;
+    box-shadow: none;
+    outline: none;
+}
+
+.btn.comment-like-btn {
+    outline: none;
+    border: none;
+    transition: none;
+}
+
+#delete-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+.edit-title {
+    font-size: 16px;
+    font-weight: 600;
+
+}
+
+.delete-title {
+    font-weight: 600;
+}
+
+.delete-text {
+    color: rgb(145, 145, 145);
+}
+
+#succes-modal {
+    display: none;
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.succes-message {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.checkmark {
+    font-size: 40px;
+    color: green;
+}
+.modal-header .modal-edit-button {
+    font-size: 16px;
+    font-weight: 600;
+    outline: none;
+    box-shadow: none;
+    border: none;
+}
+.modal-header .modal-edit-button:hover {
+    outline: none;
+    box-shadow: none;
+}
+.modal-header .modal-edit-button:focus {
+    outline: none;
+    box-shadow: none;
+    border: none;
+}
+
+.modal-edit-button.done-button {
+    color: rgb(0, 149, 246);
+}
+.modal-edit-button.close-button:hover {
+    color: #6d7a87;
+}
+
+.edit-tab .save-button {
+    font-size: 16px;
+    font-weight: 600;
+    outline: none;
+    box-shadow: none;
+    border: none;
+    color: rgb(0, 149, 246);
+}
+
+.edit-tab .save-button:hover {
+    outline: none;
+    box-shadow: none;
+    border: none;
+}
+
+#input-error {
+    color: rgb(237, 73, 86);
+    height: 3px;
+}
+
+.edit-tab .save-button:focus {
+    outline: none;
+    box-shadow: none;
+    border: none;
+}
+
+#caption-textarea {
+    border: none;
+    resize: none;
+    overflow: hidden;
+    line-height: 1.5;
+}
+
+#caption-textarea:focus-visible {
+    border: none;
+    outline: none;
+}
+

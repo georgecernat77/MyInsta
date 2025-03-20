@@ -58,3 +58,85 @@
     background-color: rgba(0, 0, 0, 0.4);
     z-index: 9999;
 }
+
+.nav-center {
+    margin-left: auto;
+}
+
+.search-bar {
+    /*width: 300px;*/
+    padding: 8px 15px 8px 35px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 14px;
+    outline: none;
+    transition: 0.3s ease;
+}
+
+.search-box {
+    width: 300px;
+}
+
+.search-bar:focus {
+    border-color: #424242;
+    box-shadow: 0 0 5px rgba(47, 41, 41, 0.5);
+}
+
+
+.navbar.navbar-expand-md {
+    position:fixed;
+    top:0;
+    width: 100%;
+    z-index: 999;
+    box-shadow: 0 5px 5px rgba(0, 0, 0.1, 0.1) !important;
+}
+
+/*padding pentru navbar*/
+body {
+    padding-top: 100px;
+}
+
+.results-box {
+    display: none;
+    width: 350px;
+    height: 300px;
+    border: 1px solid #ccc;
+    /*border-top: none;*/
+    border-radius: 10px 10px 20px 20px;
+    background-color: white;
+    position:absolute;
+    top: 63px;
+}
+
+.search-box {
+    position: relative;
+}
+
+.search-icon {
+    position: absolute;
+    left: 12px;
+    color: #888;
+    font-size: 17px;
+    top: 12px;
+}
+
+.search-result {
+    padding-top: 8px;
+    padding-bottom: 8px
+}
+
+.search-result:hover {
+    background-color: rgb(231 231 231);
+}
+
+#search-modal{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+
+

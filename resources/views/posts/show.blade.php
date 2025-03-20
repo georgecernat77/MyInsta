@@ -7,7 +7,7 @@
                 <img src="/storage/{{ $post->image }}" class="w-100">
             </div>
             <div class="col-4">
-                <div>
+                <div class="d-flex align-items-center justify-content-between">
                     <div class="d-flex align-items-center">
                         <div class="pr-3">
                             <a class="text-decoration-none" href="/profile/{{ $post->user->id }}">
@@ -18,23 +18,112 @@
                         <div class="d-flex align-items-center">
                             <div class="font-weight-bold">
                                 <a class="text-decoration-none" href="/profile/{{ $post->user->id }}">
-                                    <span class="text-dark">{{ $post->user->profile->title }}</span>
+                                    <span class="text-dark">{{ $post->user->username }}</span>
                                 </a>
-{{--                                <a class="text-decoration-none pl-2" href="#">--}}
-{{--                                    Follow--}}
-{{--                                </a>--}}
                             </div>
-                            <div class="pl-3"><follow-button user-id="{{ $post->user->id }}" follows="{{ $follows }}" is-link-style="{{ true }}"></follow-button></div>
+                        </div>
+                        @cannot('update', $post)
+                            <div class="pl-3">
+                                <follow-button user-id="{{ $post->user->id }}" follows="{{ $follows }}"
+                                               is-link-style="{{ true }}"></follow-button>
+                            </div>
+                        @endcannot
+                    </div>
+                    @can('update', $post)
+                        <button class="open-options-btn text-decoration-none" onclick="toggleOptions()">
+                            <svg aria-label="More options" height="24"
+                                 role="img" viewBox="0 0 24 24" width="24"><title>More options</title>
+                                <circle cx="12" cy="12" r="1.5"></circle>
+                                <circle cx="6" cy="12" r="1.5"></circle>
+                                <circle cx="18" cy="12" r="1.5"></circle>
+                            </svg>
+                        </button>
+                    @endcan
+                </div>
+                @can('update', $post)
+                    <div id="options-modal" class="modal">
+                        <div class="modal-content p-0">
+                            <div class="modal-body p-0">
+                                <div class="options-tab d-flex flex-column justify-content-center align-items-center">
+                                    <div class="options-button-div pt-2">
+
+                                        <button class="options-button delete-button btn" onclick="toggleDeletePost()">Delete</button>
+                                    </div>
+                                    <div class="options-button-div">
+                                        <button class="options-button btn text-decoration-none" onclick="toggleEditPost()">Edit</button>
+                                    </div>
+                                    <div class="options-button-div pb-2">
+                                        <button class="options-button btn" onclick="toggleOptions()">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endcan
+                @can('update', $post)
+                    <div id="edit-modal" class="modal">
+                        <div class="modal-content p-0">
+                            <div class="modal-header d-flex justify-content-between align-items-center">
+                                <button class="modal-edit-button close-button btn text-decoration-none" onclick="toggleEditPost()">Cancel</button>
+                                <h5 class="edit-title">Edit Caption</h5>
+                                <button class="modal-edit-button done-button btn text-decoration-none" onclick="toggleEditPost()">Done</button>
+                            </div>
+                            <div class="modal-body p-0">
+                                <div class="edit-tab p-3">
+                                    <form action="#" id="edit-caption-form">
+                                        <div class="d-flex flex-column justify-content-center align-items-center">
+{{--                                            <label for="caption-textarea" class="edit-label">Edit caption</label>--}}
+                                            <p id="input-error"></p>
+                                            <label for="caption-textarea" class="edit-label"></label>
+                                            <textarea name="caption-textarea" class="w-100" id="caption-textarea" rows="5">{{$post->caption}}</textarea>
+                                            <p id="charCount">0/250</p>
+                                            <input type="hidden" name="post-id" id="post-id" value="{{ $post->id  }}">
+                                            <button class="btn save-button" id="save-caption" type="submit" disabled>Save</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endcan
+                @can('update', $post)
+                    <div id="delete-modal" class="modal">
+                        <div class="modal-content p-0">
+                            <div class="modal-header pt-4 d-flex flex-column justify-content-between align-items-center">
+                                <h5 class="detele-title">Delete Post?</h5>
+                                <p class="delete-text">Are you sure you want to delete this post?</p>
+                            </div>
+                            <div class="modal-body p-0">
+                                <div class="options-tab d-flex flex-column justify-content-center align-items-center">
+                                    <div class="options-button-div pt-2">
+                                        <button class="options-button delete-button btn" onclick="safeDeletePost()">Delete</button>
+                                    </div>
+                                    <div class="options-button-div pb-2">
+                                        <button class="options-button btn" onclick="toggleDeletePost()">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endcan
+                @can('update', $post)
+                    <div id="succes-modal" class="modal">
+                        <div class="modal-content p-0">
+                            <div class="modal-body text-center p-5">
+                                <span class="checkmark">&#10004;</span>
+                                <p class="succes-message"></p>
+                            </div>
+                        </div>
+                    </div>
+                @endcan
                 <hr>
                 <div class="comments-and-caption mb-1">
                     <div class="pfp-and-caption d-flex">
                         <div class="d-flex align-items-center">
                             <div class="pr-3">
                                 <a class="text-decoration-none" href="/profile/{{ $post->user->id }}">
-                                    <img src="{{ $post->user->profile->profileImage()}}" alt="" class="w-100 rounded-circle"
+                                    <img src="{{ $post->user->profile->profileImage()}}" alt=""
+                                         class="w-100 rounded-circle"
                                          style="max-width: 35px">
                                 </a>
                             </div>
@@ -42,26 +131,28 @@
                                 <div class="caption d-flex align-items-center">
                                     <span class="font-weight-bold">
                                     <a class="text-decoration-none" href="/profile/{{ $post->user->id }}">
-                                        <span class="text-dark">{{ $post->user->profile->title  }}</span>
+                                        <span class="text-dark">{{ $post->user->username  }}</span>
                                     </a>
                                     </span>
-                                    <div class="pl-1">
+                                    <div class="pl-1" id="post-caption">
                                         {{$post->caption}}
                                     </div>
                                 </div>
-                                <div class="caption-date mt-1" style="font-size: 12px; color: rgb(168,168,168,1); font-weight: 400">
+                                <div class="caption-date mt-1"
+                                     style="font-size: 12px; color: rgb(168,168,168,1); font-weight: 400">
                                     {{ \App\Helpers\DateHelper::formatTimeDifference($post->created_at) }}
                                 </div>
                             </div>
                         </div>
 
                     </div>
-                    <div class="comments-section mt-3">
+                    <div class="comments-section mt-4">
                         @foreach($postComments as $comment)
                             <div class="pfp-and-comment d-flex" style="position:relative">
                                 <div class="pr-3">
                                     <a class="text-decoration-none" href="/profile/{{ $comment->user->id }}">
-                                        <img src="{{ $comment->user->profile->profileImage()}}" alt="" class="w-100 rounded-circle"
+                                        <img src="{{ $comment->user->profile->profileImage()}}" alt=""
+                                             class="w-100 rounded-circle"
                                              style="max-width: 35px">
                                     </a>
                                 </div>
@@ -70,24 +161,27 @@
                                         <div class="comment d-flex align-items-center">
                                             <span class="font-weight-bold">
                                             <a class="text-decoration-none" href="/profile/{{ $comment->user->id }}">
-                                                <span class="text-dark">{{ $comment->user->profile->title }}</span>
+                                                <span class="text-dark">{{ $comment->user->username }}</span>
                                             </a>
                                             </span>
-                                                <div class="pl-1">{{$comment->content}}</div>
+                                            <div class="pl-1">{{$comment->content}}</div>
                                         </div>
-                                        <div class="comment-date mt-1 d-flex" style="font-size: 12px; color: rgb(168,168,168,1); font-weight: 400">
-                                           {{ \App\Helpers\DateHelper::formatTimeDifference($comment->created_at) }}
-                                           <div class="likes-count ml-3 font-weight-bold" id="likes-count-{{ $comment->id }}">
-                                               {{$comment->likesCount}} likes
-                                           </div>
+                                        <div class="comment-date mt-1 d-flex"
+                                             style="font-size: 12px; color: rgb(168,168,168,1); font-weight: 400">
+                                            {{ \App\Helpers\DateHelper::formatTimeDifference($comment->created_at) }}
+                                            <div class="likes-count ml-3 font-weight-bold"
+                                                 id="likes-count-{{ $comment->id }}">
+                                                {{$comment->likesCount}} likes
+                                            </div>
                                         </div>
                                     </div>
-{{--                                    <commentlike-button comment-id="{{ $comment->id }}" liking="{{ $comment->commentLiking }}"></commentlike-button>--}}
                                     <button class="btn comment-like-btn" onclick="likeComment({{ $comment->id }})">
                                         @if ($comment->commentLiking)
-                                            <img :src="'/storage/icons/heart-full.png'" class='comment-like-icon' id="like-icon-{{ $comment->id }}"/>
+                                            <img :src="'/storage/icons/heart-full.png'" class='comment-like-icon'
+                                                 id="like-icon-{{ $comment->id }}"/>
                                         @else
-                                            <img :src="'/storage/icons/heart-empty.png'" class='comment-like-icon' id="like-icon-{{ $comment->id }}"/>
+                                            <img :src="'/storage/icons/heart-empty.png'" class='comment-like-icon'
+                                                 id="like-icon-{{ $comment->id }}"/>
                                         @endif
                                     </button>
                                 </div>
@@ -95,13 +189,15 @@
                         @endforeach
                     </div>
                 </div>
-                <like-window post-id="{{ $post->id }}" likes-count="{{ $likesCount }}" liking="{{ $liking }}"></like-window>
+                <like-window post-id="{{ $post->id }}" likes-count="{{ $likesCount }}"
+                             liking="{{ $liking }}"></like-window>
                 <div class="add-comment-section">
                     <form action="/comment/{{ $post->id }}" method="post">
                         @csrf
                         <div class="d-flex align-items-center" style="justify-content: space-between;">
                             <div class="form">
-                                <textarea name="content" class="no-outline" placeholder="Add a comment..." required></textarea>
+                                <textarea name="content" class="no-outline" placeholder="Add a comment..."
+                                          required></textarea>
                             </div>
                             <button type="submit" class="btn-link-as-text">Post</button>
                         </div>
@@ -112,58 +208,4 @@
     </div>
 @endsection
 
-{{--<script>--}}
-{{--    function likeComment(commentId) {--}}
-{{--        axios.post('/likeComment/' + commentId)--}}
-{{--            .then(response => {--}}
-{{--                // this.status = !this.status;--}}
-{{--                // verificam daca utilizatorul a dat like / unlike la comentariu--}}
-{{--                const { attached, detached } = response.data; // aici se populeaza attached , dettached cu array-urile corespunzatoare din response.data--}}
-{{--                const likeIcon = document.getElementById(`like-icon-${commentId}`);--}}
-{{--                const liked = attached.includes(commentId);--}}
-{{--                const unliked = detached.includes(commentId);--}}
-{{--                if (liked) {--}}
-{{--                    likeIcon.src = '/storage/icons/heart-full.png';--}}
-{{--                }--}}
-{{--                else {--}}
-{{--                    likeIcon.src = '/storage/icons/heart-empty.png';--}}
-{{--                }--}}
-{{--                updateLikes(commentId);--}}
-{{--            })--}}
-{{--            .catch(errors => {--}}
-{{--                if(errors.response.status === 401) {--}}
-{{--                    window.location = '/login';--}}
-{{--                }--}}
-{{--            })--}}
-{{--    }--}}
 
-{{--    function updateLikes(commentId) {--}}
-{{--        const likesCountDiv = document.getElementById(`likes-count-${commentId}`)--}}
-{{--        axios.get('/' + commentId + '/likes/')--}}
-{{--            .then(response => {--}}
-{{--                likesCountDiv.innerHTML = `${response.data} likes`;--}}
-{{--            })--}}
-{{--            .catch(errors => {--}}
-{{--                if(errors.response.status === 401) {--}}
-{{--                    window.location.reload();--}}
-{{--                }--}}
-{{--            })--}}
-{{--    }--}}
-{{--</script>--}}
-
-{{--<style>--}}
-{{--    .comment-like-btn {--}}
-{{--        position: absolute;--}}
-{{--        right: 0;--}}
-{{--        /*transform: translateY(-10%);*/--}}
-{{--    }--}}
-{{--    .comment-like-icon{--}}
-{{--        width: 13px;--}}
-{{--        height: 13px;--}}
-{{--    }--}}
-
-{{--    .comment-and-like .comment-like-btn:focus {--}}
-{{--        border: none;--}}
-{{--        box-shadow: none;--}}
-{{--    }--}}
-{{--</style>--}}

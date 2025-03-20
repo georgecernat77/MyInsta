@@ -6,9 +6,9 @@
         <div class="col-3 p-5">
             <img src="{{ $user->profile->profileImage()}}" class="rounded-circle w-100">
         </div>
-        <div class="col-9 pt-5" style="padding-left: 3rem">
+        <div class="col-9 pt-4" style="padding-left: 3rem">
             <div class="d-flex justify-content-between align-items-baseline">
-                <div class="d-flex align-items-center pb-3">
+                <div class="d-flex align-items-center pb-2">
                     <div class="h4">{{$user->username}}</div>
                     @cannot('update', $user->profile)
                         <follow-button user-id="{{ $user->id }}" follows="{{ $follows }}"></follow-button>
@@ -36,7 +36,7 @@
     <div class="row pt-5  d-flex flex-row" >
             @foreach($user->posts as $post)
             <div class="col-4 pb-4 single-profile-post">
-                <a href="/p/{{$post->id}}">
+                <a onclick="togglePostModal({{ $post->id }})" class="image-link">
                     <div class="post-image">
                         <img src="/storage/{{ $post->image }}" alt="" class="w-100">
                         <div class="overlay"></div>
@@ -44,6 +44,25 @@
                 </a>
             </div>
             @endforeach
+    </div>
+    <div id="postModal" class="modal">
+        <div class="modal-content index-modal-content p-0">
+            <div id="modal-body"></div>
+        </div>
+    </div>
+    <div id="shareModal" class="modal">
+        <div class="modal-content p-0">
+            <div class="modal-body p-0">
+                <div class="options-tab d-flex flex-column justify-content-center align-items-center">
+                    <div class="options-button-div pt-2">
+                        <button class="options-button copy-link-button btn">Copy link</button>
+                    </div>
+                    <div class="options-button-div pb-2">
+                        <button class="options-button btn" onclick="closeShareModal()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @endsection
